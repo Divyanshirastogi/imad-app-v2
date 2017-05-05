@@ -17,6 +17,20 @@
 
             google.maps.event.addDomListener(window, 'load', init);
         </script>
+        <script>
+var app = angular.module("Equities/Stocks", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = ["Milk", "Bread", "Cheese"];
+});
+</script>
+
+<div ng-app="myShoppingList" ng-controller="myCtrl">
+    <ul>
+        <li ng-repeat="x in products">{{x}}</li>
+    </ul>
+</div>
+Try it Yourself »
+
         </script>
     </body>
 </html>
