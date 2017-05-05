@@ -1,54 +1,25 @@
-
-   <!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <title>Auto Complete Test</title>
-    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
-    <script type="text/javascript">
-        var app = angular.module('mainApp', []);
-        // Factory
-        app.factory('Search', function($http, $cacheFactory) {
-            return {
-                get: function(payload, successCallback){
-                    var key = 'search_' + payload.q;
-                    if($cacheFactory.get(key) == undefined || $cacheFactory.get(key) == ''){
-                        $http.get('/search.json', {params: payload}).then(function(data){
-                            $cacheFactory(key).put('result', data.data);
-                            successCallback(data.data);
-                        });
-                    }else{
-                        successCallback($cacheFactory.get(key).get('result'));
-                    }
-                }
-            }
-        });
-        // Controller
-        app.controller('searchController', function($scope, Search){
-            $scope.search = {'users': []};
-            $scope.$watch('searchText', function (val) {
-                var payload = {'q': val};
-                if(val != '' && val != undefined && val.length > 2){
-                    Search.get(payload, function(data){
-                        $scope.search.users = data.users;
-                    });
-                }else{
-                    $scope.search.users = [];
-                }
-            });
-        });
-    </script>
-</head>
-<body ng-app="mainApp">
-    <div ng-controller="searchController">
-        <input type="text" ng-model="searchText" />
+    <head>
+        <script src="https://maps.googleapis.com/maps/api/jsvv=3.exp&sensor=false&libraries=places"></script>
+    </head>
+    <body>
+        <div class="center">
+            <img src="/ui/madi.png" class="img-medium"/>
+        <label for="locationTextField"></label>
+        <input id="locationTextField" type="text" size="50">
 
-        <div ng-show="search.users.length > 0">
-            <ul  ng-repeat="item in search.users">
-                <li>{{ item.username }}</li>
-            </ul>
-        </div>
-    </div>
-</body>
+        <script>
+            function init() {
+                var input = document.getElementById('locationTextField');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+            }
+
+            google.maps.event.addDomListener(window, 'load', init);
+        </script>
+        </script>
+    </body>
 </html>
         
+
+ 
