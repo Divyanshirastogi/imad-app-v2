@@ -8,20 +8,25 @@
             <img src="/ui/madi.png" class="img-medium"/>
         <label for="locationTextField">search box</label>
         <input id="locationTextField" type="text" size="50">
-       
+       <div custom-select ng-model="person" ng-options="t as t.name for t in people">
+ 
+<div class="pull-left" style="width: 40px">
+        <img ng-src="{{ t.picture }}" style="width: 30px" />
+    </div>
+ 
+ 
+<div class="pull-left">
+        <strong>{{ t.name }}</strong>
+        <span>{{ t.phone }}</span>
+    </div>
+ 
+ 
+<div class="clearfix"></div>
+ 
+</div>
+
 </script>
-curl \
--F 'access_token=eWEyOS5HbHNwQkRCVUJPX2d0UUNGUVR4Z1NKRTgzUkdCWHB2V1NCbWwtc
-kNHWW5iS05NSjJLY0J5YU5CeU5QWFhTU3R5N1phdTctd250aW15dk5ZUFcySE
-t3ckpxNUdCNFhwQzYyNGVQcnlKSWlYa21Fa0xvQ0hIZ1kxZVRjaU0wJVVTRVIlMz
-c5' \
--F 'batch=[
-  
-  {
-    "method":"GET",
-    "relative_url":"?ids={result=create-ad:$.data.*.id}"
-  }
-]' \
-https://graph.facebook.com
+
+
     </body>
 </html>
