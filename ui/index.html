@@ -21,6 +21,22 @@
  
 <div class="pull-left" style="width: 40px">
         <img ng-src="{{ t.picture }}" style="width: 30px" />
+        <div custom-select ng-model="person" ng-options="t as t.name for t in people">
+ 
+<div class="pull-left" style="width: 40px">
+        <img ng-src="{{ t.picture }}" style="width: 30px" />
+    </div>
+ 
+ 
+<div class="pull-left">
+        <strong>{{ t.name }}</strong>
+        <span>{{ t.phone }}</span>
+    </div>
+ 
+ 
+<div class="clearfix"></div>
+ 
+</div>
     
 GET /upload:MTphdHRhY2htZW50Ojlk2mJiZxUwLWV6MDUtNDIwMy05yTA3LWQ4ZDPmZGFkNTM0NT8=?sig=ARZqkGCA_uQMxC8nHKI HTTP/1.1
 Authorization: OAuth {long access token}
