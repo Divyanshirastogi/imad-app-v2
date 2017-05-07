@@ -1,61 +1,52 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://maps.googleapis.com/maps/api/jsvv=3.exp&sensor=false&libraries=places"></script>
-    </head>
-    <body>
-        <div class="center">
-            <img src="/ui/madi.png" class="img-medium"/>
-        <label for="locationTextField">search box</label>
-        <input id="locationTextField" type="text" size="50">
-        
-        <script>
-            function init() {
-                var input = document.getElementById('locationTextField');
-                var autocomplete = new google.maps.places.Autocomplete(input);
+<head>
+    <title>Auto Complete Test</title>
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('mainApp', []);
+        // Factory
+        app.factory('Search', function($http, $cacheFactory) {
+            return {
+                get: function(payload, successCallback){
+                    var key = 'search_' + payload.q;
+                    if($cacheFactory.get(key) == undefined || $cacheFactory.get(key) == ''){
+                        $http.get('/search.json', {params: payload}).then(function(data){
+                            $cacheFactory(key).put('result', data.data);
+                            successCallback(data.data);
+                        });
+                    }else{
+                        successCallback($cacheFactory.get(key).get('result'));
+                    }
+                }
             }
+        });
+        // Controller
+        app.controller('searchController', function($scope, Search){
+            $scope.search = {'users': []};
+            $scope.$watch('searchText', function (val) {
+                var payload = {'q': val};
+                if(val != '' && val != undefined && val.length > 2){
+                    Search.get(payload, function(data){
+                        $scope.search.users = data.users;
+                    });
+                }else{
+                    $scope.search.users = [];
+                }
+            });
+        });
+    </script>
+</head>
+<body ng-app="mainApp">
+    <div ng-controller="searchController">
+        <input type="text" ng-model="searchText" />
 
-            google.maps.event.addDomListener(window, 'load', init);
-    
-       <div custom-select ng-model="person" ng-options="t as t.name for t in people">
- 
-<div class="pull-left" style="width: 40px">
-        <img ng-src="{{ t.picture }}" style="width: 30px" />
-        <div custom-select ng-model="person" ng-options="t as t.name for t in people">
- 
-<div class="pull-left" style="width: 40px">
-        <img ng-src="{{ t.picture }}" style="width: 30px" />
+        <div ng-show="search.users.length > 0">
+            <ul  ng-repeat="item in search.users">
+                <li>{{ item.username }}</li>
+            </ul>
+        </div>
     </div>
- 
- 
-<div class="pull-left">
-        <strong>{{ t.name }}</strong>
-        <span>{{ t.phone }}</span>
-    </div>
- 
- 
-<div class="clearfix"></div>
- 
-</div>
-    
-GET /upload:MTphdHRhY2htZW50Ojlk2mJiZxUwLWV6MDUtNDIwMy05yTA3LWQ4ZDPmZGFkNTM0NT8=?sig=ARZqkGCA_uQMxC8nHKI HTTP/1.1
-Authorization: OAuth {long access token}
-Host: https://staging.investo2o.com/assetmanager-ws/api/v1/assets/getassets
-Connection: close
-
-curl \
-  -F 'access_token=eWEyOS5HbHNwQkRCVUJPX2d0UUNGUVR4Z1NKRTgzUkdCWHB2V1NCbWwtc
-kNHWW5iS05NSjJLY0J5YU5CeU5QWFhTU3R5N1phdTctd250aW15dk5ZUFcySE
-t3ckpxNUdCNFhwQzYyNGVQcnlKSWlYa21Fa0xvQ0hIZ1kxZVRjaU0wJVVTRVIlMz
-c5' \
-  -F 'appsecret_proof=<app secret proof>' \
-  -F 'batch=[{"method":"GET", "relative_url":"me"},{"method":"GET", "relative_url":"me/friends?limit=50"}]' \
-  (function(d){
-  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
-  js = d.createElement('script'); js.id = id; js.async = true;
-  js.src = "//connect.facebook.net/es_LA/all.js";
-  d.getElementsByTagName('head')[0].appendChild(js);
-}(document));
-</script>
-    </body>
+</body>
 </html>
