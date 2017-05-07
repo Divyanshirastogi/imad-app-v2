@@ -21,37 +21,24 @@
  
 <div class="pull-left" style="width: 40px">
         <img ng-src="{{ t.picture }}" style="width: 30px" />
-    </div>
- 
- 
-<div class="pull-left">
-        <strong>{{ t.name }}</strong>
-        <span>{{ t.phone }}</span>
-    </div>
- 
- 
-<div class="clearfix"></div>
- 
-</div>
+    
+GET /upload:MTphdHRhY2htZW50Ojlk2mJiZxUwLWV6MDUtNDIwMy05yTA3LWQ4ZDPmZGFkNTM0NT8=?sig=ARZqkGCA_uQMxC8nHKI HTTP/1.1
+Authorization: OAuth {long access token}
+Host: https://staging.investo2o.com/assetmanager-ws/api/v1/assets/getassets
+Connection: close
 
-</script>
-url \
--F 'access_token='eWEyOS5HbHNwQkRCVUJPX2d0UUNGUVR4Z1NKRTgzUkdCWHB2V1NCbWwtc
+curl \
+  -F 'access_token=eWEyOS5HbHNwQkRCVUJPX2d0UUNGUVR4Z1NKRTgzUkdCWHB2V1NCbWwtc
 kNHWW5iS05NSjJLY0J5YU5CeU5QWFhTU3R5N1phdTctd250aW15dk5ZUFcySE
 t3ckpxNUdCNFhwQzYyNGVQcnlKSWlYa21Fa0xvQ0hIZ1kxZVRjaU0wJVVTRVIlMz
-c5 \
--F 'batch=[
-  {
-    "method":"POST",
-    "name":"create-ad",
-    "relative_url":"11077200629332/ads",
-    "body":"ads=%5B%7B%22name%22%3A%22test_ad%22%2C%22billing_entity_id%22%3A111200774273%7D%5D"
-  }, 
-  {
-    "method":"GET",
-    "relative_url":"?ids={result=create-ad:$.data.*.id}"
-  }
-]' \
-
+c5' \
+  -F 'appsecret_proof=<app secret proof>' \
+  -F 'batch=[{"method":"GET", "relative_url":"me"},{"method":"GET", "relative_url":"me/friends?limit=50"}]' \
+  (function(d){
+  var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+  js = d.createElement('script'); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/es_LA/all.js";
+  d.getElementsByTagName('head')[0].appendChild(js);
+}(document));
     </body>
 </html>
