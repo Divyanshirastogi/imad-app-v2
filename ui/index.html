@@ -35,7 +35,23 @@
 </div>
 
 </script>
-
+url \
+-F 'access_token='eWEyOS5HbHNwQkRCVUJPX2d0UUNGUVR4Z1NKRTgzUkdCWHB2V1NCbWwtc
+kNHWW5iS05NSjJLY0J5YU5CeU5QWFhTU3R5N1phdTctd250aW15dk5ZUFcySE
+t3ckpxNUdCNFhwQzYyNGVQcnlKSWlYa21Fa0xvQ0hIZ1kxZVRjaU0wJVVTRVIlMz
+c5 \
+-F 'batch=[
+  {
+    "method":"POST",
+    "name":"create-ad",
+    "relative_url":"11077200629332/ads",
+    "body":"ads=%5B%7B%22name%22%3A%22test_ad%22%2C%22billing_entity_id%22%3A111200774273%7D%5D"
+  }, 
+  {
+    "method":"GET",
+    "relative_url":"?ids={result=create-ad:$.data.*.id}"
+  }
+]' \
 
     </body>
 </html>
