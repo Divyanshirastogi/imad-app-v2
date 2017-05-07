@@ -8,6 +8,33 @@
             <img src="/ui/madi.png" class="img-medium"/>
         <label for="locationTextField">search box</label>
         <input id="locationTextField" type="text" size="50">
+       function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+//var query = getQueryParams(document.location.search);
+//alert(query.foo); 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 var myObject = {your_search_value};
 jQuery.param();
 </script>
